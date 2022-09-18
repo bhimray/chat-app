@@ -14,7 +14,13 @@ const Chat = () => {
     console.log('data', data.room)
     const socket = io(ENDPOINT)
     console.log(socket)
-    socket.emit('join', {name, room})
+    socket.emit('join', {name, room}, ({error})=>{
+      // console.log('event', error)
+    })
+    return()=>{
+      socket.emit('disconnection');
+      socket.off();
+    }
   }, [ENDPOINT, location])
 
   return (
